@@ -9,10 +9,10 @@
  * copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following
  * conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -55,20 +55,20 @@ const char* rs232_ascii_dump(const void *data, unsigned int len);
  #if defined(WIN32) || defined(UNDER_CE)
   #include <windows.h>
   #define DBG(x, ...) \
- 		{ \
-			SYSTEMTIME t; \
-			GetLocalTime(&t); \
-			fprintf(stderr, "[%02d:%02d:%02d.%03d] %s(%d):%s: " x, t.wHour, t.wMinute, \
-				t.wSecond, t.wMilliseconds,  __FILE__, __LINE__, __FUNCTION__, ## __VA_ARGS__); \
-		}
+                { \
+                        SYSTEMTIME t; \
+                        GetLocalTime(&t); \
+                        fprintf(stderr, "[%02d:%02d:%02d.%03d] %s(%d):%s: " x, t.wHour, t.wMinute, \
+                                t.wSecond, t.wMilliseconds,  __FILE__, __LINE__, __FUNCTION__, ## __VA_ARGS__); \
+                }
  #else
   #define DBG(x, ...) \
-		{ \
-			time_t now = time(NULL); \
-			struct tm* t = localtime(&now); \
-			fprintf(stderr, "[%02d:%02d:%02d] %s(%d):%s: " x, t->tm_hour, t->tm_min, \
-				t->tm_sec,  __FILE__, __LINE__, __FUNCTION__, ## __VA_ARGS__); \
-		}
+                { \
+                        time_t now = time(NULL); \
+                        struct tm* t = localtime(&now); \
+                        fprintf(stderr, "[%02d:%02d:%02d] %s(%d):%s: " x, t->tm_hour, t->tm_min, \
+                                t->tm_sec,  __FILE__, __LINE__, __FUNCTION__, ## __VA_ARGS__); \
+                }
  #endif /* #if defined(WIN32) || defined(UNDER_CE) */
 #else
  #define DBG(x, ...)
@@ -77,100 +77,101 @@ const char* rs232_ascii_dump(const void *data, unsigned int len);
 #endif /* RS232_DEBUG */
 
 enum rs232_baud_e {
-	RS232_BAUD_300,
-	RS232_BAUD_2400,
-	RS232_BAUD_4800,
-	RS232_BAUD_9600,
-	RS232_BAUD_19200,
-	RS232_BAUD_38400,
-	RS232_BAUD_57600,
-	RS232_BAUD_115200,
-	RS232_BAUD_460800,
-	RS232_BAUD_MAX
+        RS232_BAUD_300,
+        RS232_BAUD_2400,
+        RS232_BAUD_4800,
+        RS232_BAUD_9600,
+        RS232_BAUD_19200,
+        RS232_BAUD_38400,
+        RS232_BAUD_57600,
+        RS232_BAUD_115200,
+        RS232_BAUD_230400,
+        RS232_BAUD_460800,
+        RS232_BAUD_MAX
 };
 
 enum rs232_data_e {
-	RS232_DATA_5,
-	RS232_DATA_6,
-	RS232_DATA_7,
-	RS232_DATA_8,
-	RS232_DATA_MAX
+        RS232_DATA_5,
+        RS232_DATA_6,
+        RS232_DATA_7,
+        RS232_DATA_8,
+        RS232_DATA_MAX
 };
 
 enum rs232_parity_e {
-	RS232_PARITY_NONE,
-	RS232_PARITY_ODD,
-	RS232_PARITY_EVEN,
-	RS232_PARITY_MAX
+        RS232_PARITY_NONE,
+        RS232_PARITY_ODD,
+        RS232_PARITY_EVEN,
+        RS232_PARITY_MAX
 };
 
 enum rs232_stop_e {
-	RS232_STOP_1,
-	RS232_STOP_2,
-	RS232_STOP_MAX
+        RS232_STOP_1,
+        RS232_STOP_2,
+        RS232_STOP_MAX
 };
 
 enum rs232_flow_e {
-	RS232_FLOW_OFF,
-	RS232_FLOW_HW,
-	RS232_FLOW_XON_XOFF,
-	RS232_FLOW_MAX
+        RS232_FLOW_OFF,
+        RS232_FLOW_HW,
+        RS232_FLOW_XON_XOFF,
+        RS232_FLOW_MAX
 };
 
 enum rs232_status_e {
-	RS232_PORT_CLOSED,
-	RS232_PORT_OPEN,
+        RS232_PORT_CLOSED,
+        RS232_PORT_OPEN,
 };
 
 enum rs232_dtr_e {
-	RS232_DTR_OFF,
-	RS232_DTR_ON,
-	RS232_DTR_MAX
+        RS232_DTR_OFF,
+        RS232_DTR_ON,
+        RS232_DTR_MAX
 };
 
 enum rs232_rts_e {
-	RS232_RTS_OFF,
-	RS232_RTS_ON,
-	RS232_RTS_MAX
+        RS232_RTS_OFF,
+        RS232_RTS_ON,
+        RS232_RTS_MAX
 };
 
 struct rs232_port_t {
-	char dev[RS232_STRLEN_DEVICE+1];
-	void *pt; /* platform specific stuff */
-	enum rs232_baud_e baud;
-	enum rs232_data_e data;
-	enum rs232_stop_e stop;
-	enum rs232_flow_e flow;
-	enum rs232_parity_e parity;
-	enum rs232_status_e status;
-	enum rs232_dtr_e dtr;
-	enum rs232_rts_e rts;
+        char dev[RS232_STRLEN_DEVICE+1];
+        void *pt; /* platform specific stuff */
+        enum rs232_baud_e baud;
+        enum rs232_data_e data;
+        enum rs232_stop_e stop;
+        enum rs232_flow_e flow;
+        enum rs232_parity_e parity;
+        enum rs232_status_e status;
+        enum rs232_dtr_e dtr;
+        enum rs232_rts_e rts;
 };
 
 enum rs232_error_e {
-	RS232_ERR_NOERROR,
-	RS232_ERR_UNKNOWN,
-	RS232_ERR_OPEN,
-	RS232_ERR_CLOSE,
-	RS232_ERR_FLUSH,
-	RS232_ERR_CONFIG,
-	RS232_ERR_READ,
-	RS232_ERR_WRITE,
-	RS232_ERR_SELECT,
-	RS232_ERR_TIMEOUT,
-	RS232_ERR_IOCTL,
-	RS232_ERR_PORT_CLOSED,
-	RS232_ERR_MAX
+        RS232_ERR_NOERROR,
+        RS232_ERR_UNKNOWN,
+        RS232_ERR_OPEN,
+        RS232_ERR_CLOSE,
+        RS232_ERR_FLUSH,
+        RS232_ERR_CONFIG,
+        RS232_ERR_READ,
+        RS232_ERR_WRITE,
+        RS232_ERR_SELECT,
+        RS232_ERR_TIMEOUT,
+        RS232_ERR_IOCTL,
+        RS232_ERR_PORT_CLOSED,
+        RS232_ERR_MAX
 };
 
 #if (defined(WIN32) || defined(UNDER_CE)) && !defined(RS232_STATIC)
-	#ifdef RS232_EXPORT
-		#define RS232_LIB __declspec(dllexport)
-	#else
-		#define RS232_LIB __declspec(dllimport)
-	#endif
+        #ifdef RS232_EXPORT
+                #define RS232_LIB __declspec(dllexport)
+        #else
+                #define RS232_LIB __declspec(dllimport)
+        #endif
 #else
-	#define RS232_LIB
+        #define RS232_LIB
 #endif
 
 RS232_LIB struct rs232_port_t * rs232_init(void);
