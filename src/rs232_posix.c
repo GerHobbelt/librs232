@@ -184,6 +184,10 @@ rs232_read(struct rs232_port_t *p, unsigned char *buf, unsigned int buf_len,
         r = read(ux->fd, buf, buf_len);
         if (r == -1) {
                 *read_len = 0;
+                if ((errno == EAGAIN) || (errno == EWOULDBLOCK)) {
+                        DBG("%s\n", "RS232_ERR_TIMEOUT");
+                        return RS232_ERR_TIMEOUT;
+                }
                 DBG("errno: %d strerror: %s %s\n",
                     errno, strerror(errno), "RS232_ERR_READ");
 
