@@ -87,6 +87,7 @@ enum rs232_baud_e {
         RS232_BAUD_115200,
         RS232_BAUD_230400,
         RS232_BAUD_460800,
+        RS232_BAUD_921600,
         RS232_BAUD_MAX
 };
 
