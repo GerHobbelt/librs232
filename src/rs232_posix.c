@@ -183,6 +183,10 @@ rs232_read(struct rs232_port_t *p, unsigned char *buf, unsigned int buf_len,
 	r = read(ux->fd, buf, buf_len);
 	if (r == -1) {
 		*read_len = 0;
+        if ((errno == EAGAIN) || (errno == EWOULDBLOCK)) {
+            DBG("%s\n", "RS232_ERR_TIMEOUT");
+            return RS232_ERR_TIMEOUT;
+        }
 		DBG("errno: %d strerror: %s %s\n",
 		    errno, strerror(errno), "RS232_ERR_READ");
 
@@ -569,9 +573,17 @@ rs232_set_baud(struct rs232_port_t *p, enum rs232_baud_e baud)
 		cfsetispeed(&term, B115200);
 		cfsetospeed(&term, B115200);
 		break;
+    case RS232_BAUD_230400:
+        cfsetispeed(&term, B230400);
+        cfsetospeed(&term, B230400);
+        break;
 	case RS232_BAUD_460800:
 		cfsetispeed(&term, B460800);
 		cfsetospeed(&term, B460800);
+        break;
+    case RS232_BAUD_921600:
+        cfsetispeed(&term, B921600);
+        cfsetospeed(&term, B921600);
 		break;
 	case RS232_BAUD_921600:
 		cfsetispeed(&term, B921600);
