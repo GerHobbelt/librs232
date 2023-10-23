@@ -23,6 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#if !defined(BUILD_MONOLITHIC)
+
 #include <lauxlib.h>
 #include <lua.h>
 
@@ -566,3 +568,5 @@ RS232_LIB int luaopen_rs232_core(lua_State *L);
 RS232_LIB int luaopen_rs232_core(lua_State *L){
 	return luaopen_luars232(L);
 }
+
+#endif

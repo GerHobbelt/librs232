@@ -28,6 +28,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+
+#if !defined(_WIN32) && !defined(_WIN64)
+
 #include <termios.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -870,3 +873,5 @@ rs232_fd(struct rs232_port_t *p)
 
 	return (unsigned int) ux->fd;
 }
+
+#endif
